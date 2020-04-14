@@ -1,0 +1,36 @@
+{
+  "name": "use-automerge",
+  "version": "0.1.0",
+  "description": "Use automerge with React hooks",
+  "main": "dist/use-automerge.js",
+  "umd:main": "dist/use-automerge.umd.js",
+  "module": "dist/use-automerge.module.js",
+  "jsnext:main": "dist/use-automerge.module.js",
+  "react-native": "dist/use-automerge.module.js",
+  "typings": "dist/index.d.ts",
+  "source": "src/use-automerge.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "microbundle"
+  },
+  "keywords": [],
+  "author": "Tom Sherman <the.tomsherman@gmail.com>",
+  "license": "MIT",
+  "peerDependencies": {
+    "automerge": ">=0.14.0",
+    "react": "^16.8.0"
+  },
+  "devDependencies": {
+    "@testing-library/react-hooks": "^3.2.1",
+    "@types/jest": "^25.2.1",
+    "@types/react": "^16.9.34",
+    "automerge": "^0.14.0",
+    "jest": "^25.3.0",
+    "microbundle": "^0.11.0",
+    "prettier": "^2.0.4",
+    "react": "^16.13.1",
+    "react-test-renderer": "^16.13.1",
+    "ts-jest": "^25.3.1",
+    "typescript": "^3.8.3"
+  }
+}
