@@ -33,3 +33,25 @@ test.skip('sets initial value when passed an already created document inside of 
 
   expect(result.current[0]).toEqual(expected);
 });
+
+test('updates value', () => {
+  const { result } = renderHook(() =>
+    useAutomerge({ foo: 'bar', baz: [1, 2, 3] })
+  );
+
+  act(() => {
+    result.current[1]((doc) => {
+      doc.foo = 'changed';
+    });
+  });
+
+  expect(result.current[0].foo).toEqual('changed');
+
+  act(() => {
+    result.current[1]((doc) => {
+      doc.baz.pop();
+    });
+  });
+
+  expect(result.current[0].baz).toEqual([1, 2]);
+});

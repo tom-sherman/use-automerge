@@ -10,7 +10,7 @@
   "typings": "dist/index.d.ts",
   "source": "src/use-automerge.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "build": "microbundle"
   },
   "keywords": [],

@@ -2,8 +2,8 @@ import React from 'react';
 import Automerge from 'automerge';
 
 type AutomergeSetStateAction<D, T = Automerge.Proxy<D>> = {
-  (doc: D, message: string, callback: Automerge.ChangeFn<T>): void;
-  (doc: D, callback: Automerge.ChangeFn<T>): void;
+  (message: string, callback: Automerge.ChangeFn<T>): void;
+  (callback: Automerge.ChangeFn<T>): void;
 };
 
 export function useAutomerge<D = unknown>(
@@ -18,10 +18,10 @@ export function useAutomerge<D = unknown>(
   return [
     doc,
     React.useCallback(
-      ((doc: any, message: any, updater: any) => {
+      ((message: any, updater: any) => {
         setDoc(Automerge.change(doc, message, updater));
       }) as AutomergeSetStateAction<D>,
-      []
+      [doc]
     ),
   ];
 }
