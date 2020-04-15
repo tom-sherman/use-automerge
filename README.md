@@ -1,44 +1,53 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# use-automerge
 
-## Available Scripts
+A hook manage state using [automerge](https://github.com/automerge/automerge) in a React hook.
 
-In the project directory, you can run:
+## API
 
-### `yarn start`
+### `useAutomerge`
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+`useAutomerge(initialState)` is similar to [React.useState](https://reactjs.org/docs/hooks-state.html). The function returns a tuple, the first value of the tuple is the current state, the second is the updater function, which accepts an Automerge change function where the draft document can be mutated freely.
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+```javascript
+import React from 'react';
+import { useAutomerge } from 'use-automerge';
 
-### `yarn test`
+function App() {
+  const [doc, updateDoc] = useAutomerge({
+    name: 'Michel',
+    age: 33,
+  });
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+  function updateName(name) {
+    updateDoc((draft) => {
+      draft.name = name;
+    });
+  }
 
-### `yarn build`
+  function becomeOlder() {
+    updateDoc((draft) => {
+      draft.age++;
+    });
+  }
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+  return (
+    <div className="App">
+      <h1>
+        Hello {person.name} ({person.age})
+      </h1>
+      <input
+        onChange={(e) => {
+          updateName(e.target.value);
+        }}
+        value={person.name}
+      />
+      <br />
+      <button onClick={becomeOlder}>Older</button>
+    </div>
+  );
+}
+```
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+## Prior art
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+This project was heavily inspired by [user-immer](https://github.com/immerjs/use-immer).
